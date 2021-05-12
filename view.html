@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Get a Website's Information</title>
+    </head>
+    <body>
+        <p>Input the website to check</p>
+        <form action="/checkUrl" method="POST">
+            <label>Website URL:</label><br />
+            <input type="text" name="url">
+        </form>
+        {{if .WrongUrl}}
+                <p style="color:#ff0000">Wrong Website URL</p>
+        {{end}}
+        {{if .NotReachable}}
+            <p style="color:#ff0000">Website not reachable</p>
+        {{end}}
+    </body>
+</html>
+
+
+{{define "results"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get a Website's Information</title>
+</head>
+<body>
+    <p>Input the website to check</p>
+    <form action="/checkUrl" method="POST">
+        <label>Website URL:</label><br />
+        <input type="text" name="url">
+    </form>
+    <hr>
+    <h4>Information for website {{.WebsiteUrl}}</h4>
+    <p>html Version: {{.HtmlVersion}}</p>
+    <p>Page Title: {{.PageTitle}}</p>
+    <p>Headers count:</p>
+    {{range $key, $value := .HeadingsCount }}
+    <li><strong>{{ $key }}</strong>: {{ $value }}</li>
+    {{end}}
+    <p>External links: {{.ExternalLinks}}</p>
+    <p>Internal links: {{.InternalLinks}}</p>
+    <p>Broken links: {{.BrokenLinks}}</p>
+    <p>Has Login form: {{.Login}} </p>
+</body>
+</html>
+    {{end}}
